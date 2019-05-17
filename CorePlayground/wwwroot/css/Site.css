@@ -1,0 +1,22 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.prod-info {
+    background-color: lightgray;
+    border-radius: 10px 10px;
+    display: inline-block
+}
+    
+    .prod-info img {
+        max-width: 200px;
+        max-height: 400px;
+        border: 2px solid black;
+        margin: 5px 5px 5px 5px
+    }
+
+    .prod-info ul {
+        list-style: none;
+        padding: 5px 5px 5px 5px;
+        margin: 5px 5px 5px 5px;
+    }
