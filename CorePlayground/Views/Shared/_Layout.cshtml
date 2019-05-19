@@ -1,0 +1,30 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Home</title>
+    <link type="text/css" rel="stylesheet" href="~/css/Site.css" />
+</head>
+<body>
+    <header><h1>Welcome to Dutch treat</h1></header>
+    <menu>
+        <ul>
+            <li><a asp-controller="app" asp-action="index">Home</a></li>
+            <li><a asp-controller="app" asp-action="about">About</a></li>
+            <li><a asp-controller="app" asp-action="ContactUs">Contact Us</a></li>
+        </ul>
+    </menu>
+    <section>
+        <h2>@ViewBag.Title</h2>
+        @RenderBody()
+    </section>
+    <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

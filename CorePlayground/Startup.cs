@@ -21,17 +21,23 @@ namespace CorePlayground
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            if (!env.IsProduction())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/error");
+            }
+            app.UseNodeModules(env);
             app.UseStaticFiles();
             app.UseMvc(cfg =>
             {
                 cfg.MapRoute("default", "{controller}/{action}/{id?}",
-                    defaults: new { controller = "Home", action = "Index" });
+                    defaults: new { controller = "App", action = "Index" });
             });
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+           
         }
     }
 }

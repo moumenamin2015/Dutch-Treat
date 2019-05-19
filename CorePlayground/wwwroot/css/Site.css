@@ -13,7 +13,7 @@
         max-height: 400px;
         border: 2px solid black;
         margin: 5px 5px 5px 5px;
-        float:left;
+        float: left;
     }
 
     .prod-info ul {
@@ -22,6 +22,34 @@
         margin: 5px 5px 5px 5px;
     }
 
-    .prod-info .buy {        
+    .prod-info .buy {
         margin: 5px;
+    }
+
+menu li {
+    display: inline;
+}
+
+    menu li::after {
+        content: " |"
+    }
+
+    menu li:last-of-type::after {
+        content: "";
+    }
+
+form input, textarea {
+    width: 200px;
+}
+
+    form input[type="submit"] {
+        font-weight: bold;
+        background-color: lightcoral;
+        border: none;
+        padding: 15px 32px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        margin-top: 15px;
+        cursor:pointer;
     }
