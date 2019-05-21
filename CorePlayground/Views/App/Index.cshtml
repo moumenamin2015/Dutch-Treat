@@ -1,13 +1,18 @@
-﻿@{ 
+﻿@model List<Product>;
+@{
     ViewBag.Title = "Home Page";
 }
-<div class="prod-info">
-    <img src="~/img/iPhone-Red.png" />
-    <ul>
-        <li>Price: 700$</li>
-        <li>Title: </li>
-        <li>Description</li>
-    </ul>
-    <input type="submit" value="Buy item" class="buy" />
-</div>
+@foreach (var item in Model)
+{
+    <div class="prod-info">
+        <img src="~/img/iPhone-Red.png" />
+        <ul>
+            <li>Price: @item.Price</li>
+            <li>Title: @item.Title</li>
+            <li>Description: @item.ArtDescription</li>
+        </ul>
+        <input type="submit" value="Buy item" class="buy" />
+    </div>
+}
+
 

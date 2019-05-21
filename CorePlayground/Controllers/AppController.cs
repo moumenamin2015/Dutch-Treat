@@ -1,4 +1,5 @@
-﻿using CorePlayground.ViewModels;
+﻿using CorePlayground.Data;
+using CorePlayground.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,16 @@ namespace CorePlayground.Controllers
 {
     public class AppController : Controller
     {
+        private readonly DutchContext context;
+
+        public AppController(DutchContext ctx)
+        {
+            context = ctx;
+        }
         public IActionResult Index()
         {
-            return View();
+            var products = context.Products.OrderBy(p => p.Category);
+            return View(products.ToList());
         }
         public IActionResult ContactUs()
         {
@@ -20,7 +28,7 @@ namespace CorePlayground.Controllers
         }
         [HttpPost]
         public IActionResult ContactUs([FromForm] ContactUsViewModel model)
-        {            
+        {
             return View();
         }
         public IActionResult About()

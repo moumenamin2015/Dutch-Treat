@@ -22,10 +22,10 @@ namespace CorePlayground.Data
 
         public void Seed()
         {
-            ctx.Database.EnsureCreated():
+            ctx.Database.EnsureCreated();
             if (!ctx.Products.Any())
             {
-                var filePath = Path.Combine(hosting.ContentRootPath, "/data/art.json");
+                var filePath = Path.Combine(hosting.ContentRootPath, "Data/art.json");
                 var json = File.ReadAllText(filePath);
                 var products = JsonConvert.DeserializeObject<List<Product>>(json);
                 ctx.Products.AddRange(products);
