@@ -2,17 +2,20 @@
 @{
     ViewBag.Title = "Home Page";
 }
-@foreach (var item in Model)
-{
-    <div class="prod-info">
-        <img src="~/img/iPhone-Red.png" />
-        <ul>
-            <li>Price: @item.Price</li>
-            <li>Title: @item.Title</li>
-            <li>Description: @item.ArtDescription</li>
-        </ul>
-        <input type="submit" value="Buy item" class="buy" />
-    </div>
-}
-
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3">
+            <div class="border bg-light rounded p1">
+                <img src="~/img/@(item.ArtId).jpg" class="img-fluid" />
+                <ul>
+                    <li>Price: @item.Price</li>
+                    <li>Title: @item.Title</li>
+                    <li>Description: @item.ArtDescription</li>
+                </ul>
+                <input type="submit" value="Buy item" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+</div>
 

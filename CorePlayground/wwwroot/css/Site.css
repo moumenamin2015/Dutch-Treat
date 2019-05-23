@@ -53,3 +53,11 @@ form input, textarea {
         margin-top: 15px;
         cursor:pointer;
     }
+
+li {
+    width: 100px;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
