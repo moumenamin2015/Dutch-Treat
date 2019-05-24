@@ -1,4 +1,5 @@
 ﻿using CorePlayground.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +16,36 @@ namespace CorePlayground.Data.Repositories
             this.context = context;
         }
 
+        public void AddEntity(object model)
+        {
+            context.Add(model);
+        }
+
+        public IEnumerable<Order> GetAllOrders()
+        {
+            return context.Orders
+                          .Include(o => o.Items)
+                          .ThenInclude(p => p.Product)
+                          .ToList();
+        }
+
         public IEnumerable<Product> GetAllProducts()
         {
             return context.Products
-                .OrderBy(p => p.Title).ToList();
+                          .OrderBy(p => p.Title).ToList();
+        }
+
+        public Order GetOrderById(int id)
+        {
+            return context.Orders
+                          .Include(o => o.Items)
+                          .Where(o => o.Id == id).FirstOrDefault();
         }
 
         public IEnumerable<Product> GetProductsByCategory(string category)
         {
             return context.Products
-                .Where(p => p.Category == category).ToList();
+                          .Where(p => p.Category == category).ToList();
         }
 
         public bool SaveAll()

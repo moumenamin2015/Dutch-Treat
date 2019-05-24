@@ -29,7 +29,26 @@ namespace CorePlayground.Data
                 var json = File.ReadAllText(filePath);
                 var products = JsonConvert.DeserializeObject<List<Product>>(json);
                 ctx.Products.AddRange(products);
-
+                ctx.SaveChanges();
+            }
+            var order = ctx.Orders.FirstOrDefault();
+            if (order == null)
+            {
+                order = new Order()
+                {                   
+                    OrderDate = DateTime.UtcNow,
+                    OrderNumber = "123",
+                    Items = new List<OrderItem>()
+                        {
+                            new OrderItem()
+                            {                                
+                                Product = ctx.Products.First(),
+                                Quantity = 4,
+                                UnitPrice = ctx.Products.First().Price
+                            }
+                        }
+                };
+                ctx.Orders.Add(order);
                 ctx.SaveChanges();
             }
         }

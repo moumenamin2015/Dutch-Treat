@@ -7,11 +7,13 @@
     {
         <div class="col-md-3">
             <div class="border bg-light rounded p1">
-                <img src="~/img/@(item.ArtId).jpg" class="img-fluid" />
+                <div class="thumbnail">
+                    <img src="~/img/@(item.ArtId).jpg" style="width:100%;" />
+                </div>
                 <ul>
-                    <li>Price: @item.Price</li>
+                    <li>Price: @item.Price$</li>
                     <li>Title: @item.Title</li>
-                    <li>Description: @item.ArtDescription</li>
+                    <li>Description: @string.Concat(item.ArtDescription?.Substring(0, 100),"...")</li>
                 </ul>
                 <input type="submit" value="Buy item" class="btn btn-primary" />
             </div>
