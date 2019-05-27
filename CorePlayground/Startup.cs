@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CorePlayground.Data;
 using CorePlayground.Data.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -31,7 +32,10 @@ namespace CorePlayground
                 cfg.UseSqlServer(_config.GetConnectionString("DutchConnectionString"));
             });
 
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddTransient<DutchSeeder>();
+
             services.AddScoped<IDutchRepository, DutchRepository>();
 
             services.AddMvc()
@@ -60,8 +64,6 @@ namespace CorePlayground
                 cfg.MapRoute("default", "{controller}/{action}/{id?}",
                     defaults: new { controller = "App", action = "Index" });
             });
-
-
         }
     }
 }

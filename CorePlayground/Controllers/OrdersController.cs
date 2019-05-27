@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CorePlayground.Data.Entities;
 using CorePlayground.Data.Repositories;
+using CorePlayground.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CorePlayground.Controllers
@@ -13,16 +15,18 @@ namespace CorePlayground.Controllers
     public class OrdersController : Controller
     {
         private readonly IDutchRepository repository;
+        private readonly IMapper mapper;
 
-        public OrdersController(IDutchRepository repository)
+        public OrdersController(IDutchRepository repository, IMapper mapper)
         {
             this.repository = repository;
+            this.mapper = mapper;
         }
         public IActionResult Get()
         {
             try
             {
-                return Ok(repository.GetAllOrders());
+                return Ok(mapper.Map<IEnumerable<Order>, IEnumerable<OrderViewModel>>(repository.GetAllOrders()));
             }
             catch (Exception ex)
             {
@@ -44,15 +48,26 @@ namespace CorePlayground.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Post(Order model)
+        public IActionResult Post(OrderViewModel model)
         {
             try
             {
-                repository.AddEntity(model);
-                if (repository.SaveAll())
-                    return Ok("Added");
+                if (ModelState.IsValid)
+                {
+                    var newOrder = mapper.Map<OrderViewModel, Order>(model);
+
+                    if (newOrder.OrderDate == DateTime.MinValue)
+                        newOrder.OrderDate = DateTime.Now;
+
+                    repository.AddEntity(newOrder);
+
+                    if (repository.SaveAll())
+                        return Created("Added", mapper.Map<Order, OrderViewModel>(newOrder));
+                    else
+                        return BadRequest();
+                }
                 else
-                    return BadRequest();
+                    return BadRequest(ModelState);
             }
             catch (Exception ex)
             {
